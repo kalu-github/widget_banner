@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.demo.banner.MainActivity">
+
+    <com.demo.banner.banner.BannerLayout
+        android:id="@+id/banner1"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="#66999999"
+        app:bl_indicator_child_space="4dp"
+        app:bl_indicator_normal_color="#60ffffff"
+        app:bl_indicator_normal_height="7dp"
+        app:bl_indicator_normal_width="7dp"
+        app:bl_indicator_parent_height="18dp"
+        app:bl_indicator_rectangle="false"
+        app:bl_indicator_select_color="#ed5555"
+        app:bl_indicator_select_height="7dp"
+        app:bl_indicator_select_width="7dp"
+        app:bl_time_loop="3000"
+        app:bl_time_scroller="1000" />
+
+    <com.demo.banner.banner.BannerLayout
+        android:id="@+id/banner2"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="10dp"
+        android:background="#66999999"
+        app:bl_indicator_child_space="4dp"
+        app:bl_indicator_normal_color="#60ffffff"
+        app:bl_indicator_normal_height="7dp"
+        app:bl_indicator_normal_width="7dp"
+        app:bl_indicator_parent_height="18dp"
+        app:bl_indicator_rectangle="false"
+        app:bl_indicator_select_color="#ed5555"
+        app:bl_indicator_select_height="7dp"
+        app:bl_indicator_select_width="7dp"
+        app:bl_time_loop="3000"
+        app:bl_time_scroller="1000" />
+
+    <com.demo.banner.banner.BannerLayout
+        android:id="@+id/banner3"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginTop="10dp"
+        android:background="#66999999"
+        app:bl_indicator_child_space="4dp"
+        app:bl_indicator_normal_color="#60ffffff"
+        app:bl_indicator_normal_height="7dp"
+        app:bl_indicator_normal_width="7dp"
+        app:bl_indicator_parent_height="18dp"
+        app:bl_indicator_rectangle="false"
+        app:bl_indicator_select_color="#ed5555"
+        app:bl_indicator_select_height="7dp"
+        app:bl_indicator_select_width="7dp"
+        app:bl_time_loop="3000"
+        app:bl_time_scroller="1000" />
+
+</LinearLayout>
