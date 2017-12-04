@@ -9,6 +9,8 @@ BannerLayout.setBannerList(List<String> urlList);
 ```
 
 ```
+自定义属性：
+
 <declare-styleable name="BannerLayout">
         <!-- 指示器, 高度 -->
         <attr name="bl_indicator_parent_height" format="dimension|reference" />
