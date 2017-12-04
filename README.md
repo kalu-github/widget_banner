@@ -1,4 +1,4 @@
-[戳我下载, 体验DEMO](https://pan.baidu.com/s/1hsOrodI)
+[戳我下载 ==>](https://pan.baidu.com/s/1hsOrodI)
 
 ![image](https://github.com/153437803/BannerLayout/blob/master/Screenrecorder-2017-12-04.gif ) 
 
