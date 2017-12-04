@@ -6,41 +6,54 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 
 /**
- * Created by kalu on 2017/12/4.
+ * description: 水平+垂直
+ * created by kalu on 2017/12/4 22:22
  */
+class BannerViewPager extends ViewPager {
 
-public class BannerViewPager extends ViewPager {
+    private boolean isPagerVertical;
 
-    public BannerViewPager(Context context) {
+    public BannerViewPager(Context context, boolean isPagerVertical) {
         super(context);
+        this.isPagerVertical = isPagerVertical;
     }
 
     public BannerViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    private MotionEvent swapTouchEvent(MotionEvent event) {
-        float width = getWidth();
-        float height = getHeight();
-
-        float swappedX = (event.getY() / height) * width;
-        float swappedY = (event.getX() / width) * height;
-
-        event.setLocation(swappedX, swappedY);
-
-        return event;
-    }
-
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        boolean intercept = super.onInterceptTouchEvent(swapTouchEvent(ev));
-        swapTouchEvent(ev);
+
+        if (!isPagerVertical) return super.onInterceptTouchEvent(ev);
+
+        float width = getWidth();
+        float height = getHeight();
+        float swappedX = (ev.getY() / height) * width;
+        float swappedY = (ev.getX() / width) * height;
+        ev.setLocation(swappedX, swappedY);
+        boolean intercept = super.onInterceptTouchEvent(ev);
+
+        float width1 = getWidth();
+        float height1 = getHeight();
+        float swappedX1 = (ev.getY() / height1) * width1;
+        float swappedY1 = (ev.getX() / width1) * height1;
+        ev.setLocation(swappedX1, swappedY1);
+
         return intercept;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        return super.onTouchEvent(swapTouchEvent(ev));
 
+        if (!isPagerVertical) return super.onTouchEvent(ev);
+
+        float width = getWidth();
+        float height = getHeight();
+        float swappedX = (ev.getY() / height) * width;
+        float swappedY = (ev.getX() / width) * height;
+        ev.setLocation(swappedX, swappedY);
+
+        return super.onTouchEvent(ev);
     }
 }

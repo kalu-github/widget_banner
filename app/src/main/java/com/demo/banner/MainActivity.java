@@ -19,7 +19,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final BannerLayout banner = findViewById(R.id.banner1);
+        final BannerLayout banner1 = findViewById(R.id.banner1);
+        final BannerLayout banner2 = findViewById(R.id.banner2);
+        final BannerLayout banner3 = findViewById(R.id.banner3);
+
         final ArrayList<String> images = new ArrayList<>();
 
         //get请求简洁版实现
@@ -33,8 +36,26 @@ public class MainActivity extends AppCompatActivity {
                     images.add(result.get(i).getImage());
                 }
 
-                banner.setBannerList(images);
-                banner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+                banner1.setBannerList(images);
+                banner1.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+                    @Override
+                    public void onBannerItemClick(int position) {
+                        final String url = result.get(position).getUrl();
+                        Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                banner2.setBannerList(images);
+                banner2.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+                    @Override
+                    public void onBannerItemClick(int position) {
+                        final String url = result.get(position).getUrl();
+                        Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                banner3.setBannerList(images);
+                banner3.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
                     @Override
                     public void onBannerItemClick(int position) {
                         final String url = result.get(position).getUrl();

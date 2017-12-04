@@ -35,13 +35,14 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
     private final ArrayList<BannerImageView> mImageList = new ArrayList<>(); // 图片集合
     private final ArrayList<ImageView> mindicatorList = new ArrayList<>();
     private final Handler mHandler = new Handler(this);
-    private final BannerViewPager mViewPager = new BannerViewPager(mContext);
     private final BannerAdapter mBannerAdapter = new BannerAdapter(mImageList);
     private final LinearLayout mLinearLayout = new LinearLayout(mContext); // 指示器容器
     private final int[] LOCAL_WINDOW = new int[2];
 
     private final GradientDrawable normal = new GradientDrawable();
     private final GradientDrawable select = new GradientDrawable();
+
+    private BannerViewPager mViewPager;
 
     // 默认指示器宽高, 选中状态指示器宽高
     private int normalColor, selectColor, selectHeight, selectWidth, normalHeight, normalWidth, indicatorHeight;
@@ -54,6 +55,7 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
 
     private int realImageSize = 0;
     private boolean isTouch = false;
+    private boolean isPagerVertical = false;
 
     /**********************************************************************************************/
 
@@ -74,6 +76,7 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
         try {
             array = getContext().obtainStyledAttributes(attrs, R.styleable.BannerLayout, defStyleAttr, 0);
 
+            isPagerVertical = array.getBoolean(R.styleable.BannerLayout_bl_pager_vertical, false);
             indicatorRectangle = array.getBoolean(R.styleable.BannerLayout_bl_indicator_rectangle, false);
             loopTime = array.getInt(R.styleable.BannerLayout_bl_time_loop, 3000);
             scrollerTime = array.getInt(R.styleable.BannerLayout_bl_time_scroller, 1000);
@@ -96,6 +99,10 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
             select.setShape(indicatorRectangle ? GradientDrawable.RECTANGLE : GradientDrawable.OVAL);
             select.setColor(selectColor);
             select.setSize(selectWidth, selectHeight);
+
+            if (null == mViewPager) {
+                mViewPager = new BannerViewPager(mContext, isPagerVertical);
+            }
 
             if (null == array) return;
             array.recycle();
@@ -263,7 +270,7 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
         }
 
         mViewPager.setAdapter(mBannerAdapter);
-        mViewPager.setPageTransformer(true, new TransformerVertical());
+      //  mViewPager.setPageTransformer(true, new TransformerScale());
         int position = Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % mindicatorList.size();
         mViewPager.setCurrentItem(position);
         onPageSelected(0);

@@ -29,6 +29,8 @@
         <attr name="bl_time_loop" format="integer|reference" />
         <!-- 滚动时长 -->
         <attr name="bl_time_scroller" format="integer|reference" />
+        <!-- 垂直Pager -->
+        <attr name="bl_pager_vertical" format="boolean" />
     </declare-styleable>
 
 </resources>
