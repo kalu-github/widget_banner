@@ -3,6 +3,15 @@
 ![image](https://github.com/153437803/BannerLayout/blob/master/Screenrecorder-2017-12-04.gif ) 
 
 ```
+解决问题：
+
+1.Banner不可见的情况下还会发送轮播消息
+2.Banne可见时, 偶发性的不再发送轮播消息
+3.使用Handler发送延时消息, 不使用第三方库
+```
+
+
+```
 使用方法：
 
 BannerLayout.setBannerList(List<String> urlList);
