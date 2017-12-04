@@ -77,3 +77,92 @@ public boolean onTouchEvent(MotionEvent ev) {
     return super.onTouchEvent(ev);
 }
 ```
+
+```
+循环轮播,停止轮播(BannerLayout.class)：
+
+@Override
+protected void onDetachedFromWindow() {
+    setImageLoop(false);
+    super.onDetachedFromWindow();
+}
+
+@Override
+public void onFinishTemporaryDetach() {
+    setImageLoop(false);
+    super.onFinishTemporaryDetach();
+}
+
+@Override
+protected void onAttachedToWindow() {
+    setImageLoop(true);
+    super.onAttachedToWindow();
+}
+
+@Override
+public void onStartTemporaryDetach() {
+    setImageLoop(true);
+    super.onStartTemporaryDetach();
+}
+
+@Override
+protected void onVisibilityChanged(View changedView, int visibility) {
+    if (visibility == View.VISIBLE) {
+        setImageLoop(true);
+        getViewTreeObserver().addOnScrollChangedListener(this);
+    } else {
+        setImageLoop(false);
+        getViewTreeObserver().removeOnScrollChangedListener(this);
+    }
+    super.onVisibilityChanged(changedView, visibility);
+}
+
+@Override
+public void onScrollChanged() {
+
+    if (isTouch) return;
+
+    getLocationInWindow(LOCAL_WINDOW);
+    // 上划
+    if (LOCAL_WINDOW[1] < 0) {
+        setImageLoop(Math.abs(LOCAL_WINDOW[1]) <= getHeight());
+    } else {
+        setImageLoop(Math.abs(LOCAL_WINDOW[1]) >= 0);
+    }
+}
+
+@Overrid
+public boolean dispatchTouchEvent(MotionEvent ev) {
+    switch (ev.getAction()) {
+        case MotionEvent.ACTION_POINTER_DOWN:
+        case MotionEvent.ACTION_DOWN:
+            isTouch = true;
+            setImageLoop(false);
+            break;
+        case MotionEvent.ACTION_CANCEL:
+        case MotionEvent.ACTION_POINTER_UP:
+        case MotionEvent.ACTION_UP:
+            isTouch = false;
+            setImageLoop(true);
+            break;
+    }
+    return super.dispatchTouchEvent(ev);
+}
+
+private void setImageLoop(boolean loop) {
+
+    if (loop) {
+        if (mHandler.hasMessages(LOOP_NEXT)) return;
+        mViewPager.removeOnPageChangeListener(this);
+        mViewPager.addOnPageChangeListener(this);
+        mHandler.sendEmptyMessageDelayed(LOOP_NEXT, loopTime);
+        // Log.e("kaluee", "开始Loop");
+    } else {
+    if (!mHandler.hasMessages(LOOP_NEXT)) return;
+        mHandler.removeMessages(LOOP_NEXT);
+        mViewPager.removeOnPageChangeListener(this);
+        mViewPager.addOnPageChangeListener(null);
+        //  Log.e("kaluee", "结束Loop");
+    }
+}
+```
