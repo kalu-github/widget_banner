@@ -2,7 +2,6 @@
 <resources>
 
     <declare-styleable name="BannerLayout">
-
         <!-- 指示器, 高度 -->
         <attr name="bl_indicator_parent_height" format="dimension|reference" />
         <!-- 指示器孩子, 选中颜色 -->
