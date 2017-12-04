@@ -3,6 +3,12 @@
 ![image](https://github.com/153437803/BannerLayout/blob/master/Screenrecorder-2017-12-04.gif ) 
 
 ```
+使用方法：
+
+BannerLayout.setBannerList(List<String> urlList);
+```
+
+```
 <declare-styleable name="BannerLayout">
         <!-- 指示器, 高度 -->
         <attr name="bl_indicator_parent_height" format="dimension|reference" />
