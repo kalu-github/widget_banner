@@ -1,4 +1,4 @@
-轮播图+视察动画+水平垂直+可见开始循环+隐藏停止循环
+[戳我下载, 体验DEMO](https://pan.baidu.com/s/1hsOrodI)
 
 ```
 <declare-styleable name="BannerLayout">
