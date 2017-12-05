@@ -256,7 +256,6 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
 
             BannerImageView image = new BannerImageView(getContext());
             GlideUtil.loadBanner(getContext(), image, url);
-
             mImageList.add(image);
 
             ImageView point = new ImageView(getContext());
@@ -270,7 +269,7 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
         }
 
         mViewPager.setAdapter(mBannerAdapter);
-      //  mViewPager.setPageTransformer(true, new TransformerScale());
+        //  mViewPager.setPageTransformer(true, new TransformerScale());
         int position = Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % mindicatorList.size();
         mViewPager.setCurrentItem(position);
         onPageSelected(0);
@@ -298,13 +297,17 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
 
     public void setOnBannerItemClickListener(final OnBannerItemClickListener onBannerClickListener) {
 
+        if (null == onBannerClickListener) return;
         for (int i = 0; i < mImageList.size(); i++) {
 
             final int position = i;
-            mImageList.get(position).setShortClickListener(new BannerImageView.OnTakePhotoClickListener() {
+            final BannerImageView image = mImageList.get(position);
+            if (null == image) continue;
+
+            image.setOnSingleTapConfirmedListener(new BannerImageView.OnSingleTapConfirmedListener() {
                 @Override
-                public void onClick() {
-                    onBannerClickListener.onBannerItemClick(Math.min(position, realImageSize - 1));
+                public void onSingleTapConfirmed() {
+                    onBannerClickListener.onBannerItemClick(position);
                 }
             });
         }
