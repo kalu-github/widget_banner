@@ -269,7 +269,7 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
         }
 
         mViewPager.setAdapter(mBannerAdapter);
-        //  mViewPager.setPageTransformer(true, new TransformerScale());
+        mViewPager.setPageTransformer(true, new TransformerVertical());
         int position = Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % mindicatorList.size();
         mViewPager.setCurrentItem(position);
         onPageSelected(0);
