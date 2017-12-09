@@ -28,11 +28,11 @@ import java.util.ArrayList;
  * description: 自定义轮播图
  * created by kalu on 2016/10/28 18:11
  */
-public class BannerLayout extends RelativeLayout implements Handler.Callback, ViewPager.OnPageChangeListener, ViewTreeObserver.OnScrollChangedListener {
+public class BannerLayout extends RelativeLayout implements Handler.Callback, ViewPager.OnPageChangeListener, ViewTreeObserver.OnScrollChangedListener, View.OnLongClickListener {
 
     private final int LOOP_NEXT = -1;
     private final Context mContext = getContext().getApplicationContext();
-    private final ArrayList<BannerImageView> mImageList = new ArrayList<>(); // 图片集合
+    private final ArrayList<ImageView> mImageList = new ArrayList<>(); // 图片集合
     private final ArrayList<ImageView> mindicatorList = new ArrayList<>();
     private final Handler mHandler = new Handler(this);
     private final BannerAdapter mBannerAdapter = new BannerAdapter(mImageList);
@@ -254,7 +254,9 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
             final int position = i;
             final String url = urlList.get(position);
 
-            BannerImageView image = new BannerImageView(getContext());
+            ImageView image = new ImageView(getContext());
+            image.setOnLongClickListener(BannerLayout.this);
+
             GlideUtil.loadBanner(getContext(), image, url);
             mImageList.add(image);
 
@@ -295,25 +297,31 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
     public void onPageScrollStateChanged(int state) {
     }
 
-    public void setOnBannerItemClickListener(final OnBannerItemClickListener onBannerClickListener) {
-
-        if (null == onBannerClickListener) return;
-        for (int i = 0; i < mImageList.size(); i++) {
-
-            final int position = i;
-            final BannerImageView image = mImageList.get(position);
-            if (null == image) continue;
-
-            image.setOnSingleTapConfirmedListener(new BannerImageView.OnSingleTapConfirmedListener() {
-                @Override
-                public void onSingleTapConfirmed() {
-                    onBannerClickListener.onBannerItemClick(position);
-                }
-            });
-        }
+    @Override
+    public boolean onLongClick(View v) {
+        return true;
     }
 
     public interface OnBannerItemClickListener {
         void onBannerItemClick(int position);
+    }
+
+    public void setOnBannerItemClickListener(final OnBannerItemClickListener onBannerClickListener) {
+
+        if (null == onBannerClickListener) return;
+
+        for (int i = 0; i < mImageList.size(); i++) {
+
+            final int position = i;
+            final ImageView image = mImageList.get(position);
+            if (null == image) continue;
+
+            image.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBannerClickListener.onBannerItemClick(position);
+                }
+            });
+        }
     }
 }

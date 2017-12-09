@@ -13,9 +13,9 @@ import java.util.List;
  */
 class BannerAdapter extends PagerAdapter {
 
-    private List<BannerImageView> views;
+    private List<ImageView> views;
 
-    public BannerAdapter(List<BannerImageView> views) {
+    public BannerAdapter(List<ImageView> views) {
         this.views = views;
     }
 
