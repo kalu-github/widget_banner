@@ -1,3 +1,8 @@
+[ ![Download](https://api.bintray.com/packages/zhanghang/maven/bannerlayout/images/download.svg) ](https://bintray.com/zhanghang/maven/bannerlayout/_latestVersion)
+
+```
+compile 'lib.kalu.banner:bannerlayout:<latest-version>'
+```
 [戳我下载 ==>](https://pan.baidu.com/s/1hsOrodI)
 
 ![image](https://github.com/153437803/BannerLayout/blob/master/Screenrecorder-2017-12-04.gif ) 
@@ -16,7 +21,22 @@
 ```
 使用方法：
 
-BannerLayout.setBannerList(List<String> urlList);
+# 设置数据
+BannerLayout.setBannerList(List<String> images);
+
+# 添加监听
+BannerLayout.setOnBannerChangeListener(new BannerLayout.OnBannerImageChangeListener() {
+
+      # glide加载网络图片
+      @Override
+      public void onBannerCreate(ImageView image, String imageUrl) {
+      }
+
+      # 点击监听
+      @Override
+      public void onBannerCilck(int position) {
+      }
+});
 ```
 
 ```
