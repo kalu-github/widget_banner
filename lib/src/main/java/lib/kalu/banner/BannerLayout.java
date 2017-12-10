@@ -31,6 +31,8 @@ import java.util.ArrayList;
  */
 public class BannerLayout extends RelativeLayout implements Handler.Callback, ViewPager.OnPageChangeListener, ViewTreeObserver.OnScrollChangedListener, View.OnLongClickListener {
 
+    private final String TAG = BannerLayout.class.getSimpleName();
+
     private final int LOOP_NEXT = -1;
     private final Context mContext = getContext().getApplicationContext();
     private final ArrayMap<String, ImageView> mImageList = new ArrayMap<>(); // 图片集合
@@ -92,7 +94,7 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
             indicatorMargin = array.getDimensionPixelSize(R.styleable.BannerLayout_bl_indicator_margin, 0);
             indicatorBackground = array.getColor(R.styleable.BannerLayout_bl_indicator_background_color, Color.TRANSPARENT);
         } catch (Exception e) {
-            Log.e("", e.getMessage(), e);
+            Log.e(TAG, e.getMessage(), e);
         } finally {
             normal.setShape(indicatorRectangle ? GradientDrawable.RECTANGLE : GradientDrawable.OVAL);
             normal.setColor(normalColor);
@@ -199,13 +201,17 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
             mViewPager.removeOnPageChangeListener(this);
             mViewPager.addOnPageChangeListener(this);
             mHandler.sendEmptyMessageDelayed(LOOP_NEXT, loopTime);
-            // Log.e("kaluee", "开始Loop");
+            if(BuildConfig.DEBUG){
+                Log.e(TAG, "开始Loop");
+            }
         } else {
             if (!mHandler.hasMessages(LOOP_NEXT)) return;
             mHandler.removeMessages(LOOP_NEXT);
             mViewPager.removeOnPageChangeListener(this);
             mViewPager.addOnPageChangeListener(null);
-            //  Log.e("kaluee", "结束Loop");
+            if(BuildConfig.DEBUG){
+                Log.e(TAG, "结束Loop");
+            }
         }
     }
 
@@ -240,7 +246,10 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
                 BannerScroller scroller = new BannerScroller(mViewPager.getContext(), null, scrollerTime);
                 mScroller.set(mViewPager, scroller);
             } catch (Exception e) {
-                Log.e("", e.getMessage(), e);
+
+                if(BuildConfig.DEBUG){
+                    Log.e("", e.getMessage(), e);
+                }
             }
         }
 
