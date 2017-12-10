@@ -21,7 +21,22 @@ compile 'lib.kalu.banner:bannerlayout:<latest-version>'
 ```
 使用方法：
 
-BannerLayout.setBannerList(List<String> urlList);
+# 设置数据
+BannerLayout.setBannerList(List<String> images);
+
+# 添加监听
+BannerLayout.setOnBannerChangeListener(new BannerLayout.OnBannerImageChangeListener() {
+
+      # glide加载网络图片
+      @Override
+      public void onBannerCreate(ImageView image, String imageUrl) {
+      }
+
+      # 点击监听
+      @Override
+      public void onBannerCilck(int position) {
+      }
+});
 ```
 
 ```
