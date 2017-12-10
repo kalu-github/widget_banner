@@ -1,4 +1,4 @@
-package com.demo.banner.banner;
+package lib.kalu.banner;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

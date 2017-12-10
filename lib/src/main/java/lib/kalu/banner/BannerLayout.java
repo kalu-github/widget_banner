@@ -1,4 +1,4 @@
-package com.demo.banner.banner;
+package lib.kalu.banner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -6,9 +6,11 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,9 +19,6 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.demo.banner.GlideUtil;
-import com.demo.banner.R;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
 
     private final int LOOP_NEXT = -1;
     private final Context mContext = getContext().getApplicationContext();
-    private final ArrayList<ImageView> mImageList = new ArrayList<>(); // 图片集合
+    private final ArrayMap<String, ImageView> mImageList = new ArrayMap<>(); // 图片集合
     private final ArrayList<ImageView> mindicatorList = new ArrayList<>();
     private final Handler mHandler = new Handler(this);
     private final BannerAdapter mBannerAdapter = new BannerAdapter(mImageList);
@@ -251,16 +250,12 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
         // 3.图片集合
         for (int i = 0; i < urlList.size(); i++) {
 
-            final int position = i;
-            final String url = urlList.get(position);
-
-            ImageView image = new ImageView(getContext());
+            ImageView image = new ImageView(getContext().getApplicationContext());
+            final String url = urlList.get(i);
             image.setOnLongClickListener(BannerLayout.this);
+            mImageList.put(url + i, image);
 
-            GlideUtil.loadBanner(getContext(), image, url);
-            mImageList.add(image);
-
-            ImageView point = new ImageView(getContext());
+            ImageView point = new ImageView(getContext().getApplicationContext());
             final LinearLayout.LayoutParams paramsImage = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             paramsImage.gravity = Gravity.CENTER_VERTICAL;
             paramsImage.leftMargin = indicatorSpace;
@@ -302,24 +297,33 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
         return true;
     }
 
-    public interface OnBannerItemClickListener {
-        void onBannerItemClick(int position);
+    /**********************************************************************************************/
+
+    public interface OnBannerImageChangeListener {
+
+        void onBannerCreate(ImageView image, String imageUrl);
+
+        void onBannerCilck(int position);
     }
 
-    public void setOnBannerItemClickListener(final OnBannerItemClickListener onBannerClickListener) {
-
-        if (null == onBannerClickListener) return;
+    public void setOnBannerChangeListener(final OnBannerImageChangeListener onBannerImageChangeListener) {
 
         for (int i = 0; i < mImageList.size(); i++) {
 
             final int position = i;
-            final ImageView image = mImageList.get(position);
+            final String url = mImageList.keyAt(i);
+            final ImageView image = mImageList.get(url);
+
             if (null == image) continue;
+
+            if (null != onBannerImageChangeListener) {
+                onBannerImageChangeListener.onBannerCreate(image, url.substring(0, url.length() - 1));
+            }
 
             image.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onBannerClickListener.onBannerItemClick(position);
+                    onBannerImageChangeListener.onBannerCilck(position);
                 }
             });
         }

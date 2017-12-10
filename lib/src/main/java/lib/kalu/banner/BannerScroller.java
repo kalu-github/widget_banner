@@ -1,4 +1,4 @@
-package com.demo.banner.banner;
+package lib.kalu.banner;
 
 import android.content.Context;
 import android.view.animation.Interpolator;

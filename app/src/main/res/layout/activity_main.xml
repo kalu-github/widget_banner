@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context="com.demo.banner.MainActivity">
 
-    <com.demo.banner.banner.BannerLayout
+    <lib.kalu.banner.BannerLayout
         android:id="@+id/banner1"
         android:layout_width="match_parent"
         android:layout_height="240dp"
@@ -26,7 +26,7 @@
         app:bl_time_loop="3000"
         app:bl_time_scroller="1000" />
 
-    <com.demo.banner.banner.BannerLayout
+    <lib.kalu.banner.BannerLayout
         android:id="@+id/banner2"
         android:layout_width="match_parent"
         android:layout_height="140dp"
@@ -44,7 +44,7 @@
         app:bl_time_loop="3000"
         app:bl_time_scroller="1000" />
 
-    <com.demo.banner.banner.BannerLayout
+    <lib.kalu.banner.BannerLayout
         android:id="@+id/banner3"
         android:layout_width="match_parent"
         android:layout_height="140dp"

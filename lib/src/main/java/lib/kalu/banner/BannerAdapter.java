@@ -1,5 +1,6 @@
-package com.demo.banner.banner;
+package lib.kalu.banner;
 
+import android.support.v4.util.ArrayMap;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,9 @@ import java.util.List;
  */
 class BannerAdapter extends PagerAdapter {
 
-    private List<ImageView> views;
+    private ArrayMap<String, ImageView> views;
 
-    public BannerAdapter(List<ImageView> views) {
+    public BannerAdapter(ArrayMap<String, ImageView> views) {
         this.views = views;
     }
 
@@ -32,7 +33,9 @@ class BannerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         if (views.size() > 0) {
-            View view = views.get(position % views.size());
+            final int i = position % views.size();
+            final String url = views.keyAt(i);
+            View view = views.get(url);
             if (container.equals(view.getParent())) {
                 container.removeView(view);
             }

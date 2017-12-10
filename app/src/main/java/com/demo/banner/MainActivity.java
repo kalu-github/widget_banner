@@ -2,15 +2,18 @@ package com.demo.banner;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.demo.banner.banner.BannerLayout;
 import com.google.gson.Gson;
 import com.kymjs.rxvolley.RxVolley;
 import com.kymjs.rxvolley.client.HttpCallback;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import lib.kalu.banner.BannerLayout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,27 +40,46 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 banner1.setBannerList(images);
-                banner1.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+                banner1.setOnBannerChangeListener(new BannerLayout.OnBannerImageChangeListener() {
+
                     @Override
-                    public void onBannerItemClick(int position) {
+                    public void onBannerCreate(ImageView image, String imageUrl) {
+                        Log.e("ppp", "onBannerCreate ==> imageUrl = "+imageUrl);
+                        GlideUtil.loadBanner(MainActivity.this, image, imageUrl);
+                    }
+
+                    @Override
+                    public void onBannerCilck(int position) {
                         final String url = result.get(position).getUrl();
                         Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 banner2.setBannerList(images);
-                banner2.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+                banner2.setOnBannerChangeListener(new BannerLayout.OnBannerImageChangeListener() {
+
                     @Override
-                    public void onBannerItemClick(int position) {
+                    public void onBannerCreate(ImageView image, String imageUrl) {
+                        GlideUtil.loadBanner(MainActivity.this, image, imageUrl);
+                    }
+
+                    @Override
+                    public void onBannerCilck(int position) {
                         final String url = result.get(position).getUrl();
                         Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
                     }
                 });
 
                 banner3.setBannerList(images);
-                banner3.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+                banner3.setOnBannerChangeListener(new BannerLayout.OnBannerImageChangeListener() {
+
                     @Override
-                    public void onBannerItemClick(int position) {
+                    public void onBannerCreate(ImageView image, String imageUrl) {
+                        GlideUtil.loadBanner(MainActivity.this, image, imageUrl);
+                    }
+
+                    @Override
+                    public void onBannerCilck(int position) {
                         final String url = result.get(position).getUrl();
                         Toast.makeText(getApplicationContext(), url, Toast.LENGTH_SHORT).show();
                     }
