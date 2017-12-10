@@ -24,7 +24,7 @@
         app:bl_indicator_select_width="7dp"
         app:bl_pager_vertical="true"
         app:bl_time_loop="3000"
-        app:bl_time_scroller="1000" />
+        app:bl_time_scroller="2000" />
 
     <lib.kalu.banner.BannerLayout
         android:id="@+id/banner2"

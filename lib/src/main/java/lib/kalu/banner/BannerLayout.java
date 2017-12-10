@@ -16,6 +16,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -98,10 +100,6 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
             select.setShape(indicatorRectangle ? GradientDrawable.RECTANGLE : GradientDrawable.OVAL);
             select.setColor(selectColor);
             select.setSize(selectWidth, selectHeight);
-
-            if (null == mViewPager) {
-                mViewPager = new BannerViewPager(mContext, isPagerVertical);
-            }
 
             if (null == array) return;
             array.recycle();
@@ -194,6 +192,8 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
 
     private void setImageLoop(boolean loop) {
 
+        if (null == mViewPager) return;
+
         if (loop) {
             if (mHandler.hasMessages(LOOP_NEXT)) return;
             mViewPager.removeOnPageChangeListener(this);
@@ -226,17 +226,21 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
             }
         }
 
-        // ViewPager
-        final LayoutParams params1 = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        mViewPager.setLayoutParams(params1);
-        addView(mViewPager);
-        try {
-            Field mScroller = ViewPager.class.getDeclaredField("mScroller");
-            mScroller.setAccessible(true);
-            BannerScroller scroller = new BannerScroller(mViewPager.getContext(), null, scrollerTime);
-            mScroller.set(mViewPager, scroller);
-        } catch (Exception e) {
-            Log.e("", e.getMessage(), e);
+        if (null == mViewPager) {
+            mViewPager = new BannerViewPager(mContext, isPagerVertical);
+            mViewPager.setPageTransformer(true, new TransformerVertical());
+            // ViewPager
+            final LayoutParams params1 = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            mViewPager.setLayoutParams(params1);
+            addView(mViewPager);
+            try {
+                Field mScroller = ViewPager.class.getDeclaredField("mScroller");
+                mScroller.setAccessible(true);
+                BannerScroller scroller = new BannerScroller(mViewPager.getContext(), null, scrollerTime);
+                mScroller.set(mViewPager, scroller);
+            } catch (Exception e) {
+                Log.e("", e.getMessage(), e);
+            }
         }
 
         // 指示器
@@ -266,7 +270,6 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
         }
 
         mViewPager.setAdapter(mBannerAdapter);
-        mViewPager.setPageTransformer(true, new TransformerVertical());
         int position = Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % mindicatorList.size();
         mViewPager.setCurrentItem(position);
         onPageSelected(0);
