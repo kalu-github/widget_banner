@@ -273,6 +273,7 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
         int position = Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % mindicatorList.size();
         mViewPager.setCurrentItem(position);
         onPageSelected(0);
+        setImageLoop(true);
     }
 
     @Override
