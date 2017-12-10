@@ -1,4 +1,8 @@
-[戳我下载 ==>](https://pan.baidu.com/s/1hsOrodI)
+[ ![Download](https://api.bintray.com/packages/zhanghang/maven/bannerlayout/images/download.svg) ](https://bintray.com/zhanghang/maven/bannerlayout/_latestVersion)[戳我下载 ==>](https://pan.baidu.com/s/1hsOrodI)
+
+```
+compile 'lib.kalu.banner:bannerlayout:<latest-version>'
+```
 
 ![image](https://github.com/153437803/BannerLayout/blob/master/Screenrecorder-2017-12-04.gif ) 
 ![image](https://github.com/153437803/BannerLayout/blob/master/Screenrecorder-2017-12-05.gif ) 
