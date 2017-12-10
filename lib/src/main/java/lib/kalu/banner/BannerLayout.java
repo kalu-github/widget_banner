@@ -211,8 +211,7 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
 
     /*********************************************************************************************/
 
-    public void setBannerList(ArrayList<String> urlList) {
-
+    public void setBannerList(ArrayList<String> urlList, ViewPager.PageTransformer transformer) {
         // 1.容错
         if (null == urlList || urlList.size() == 0) return;
 
@@ -228,7 +227,9 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
 
         if (null == mViewPager) {
             mViewPager = new BannerViewPager(mContext, isPagerVertical);
-            mViewPager.setPageTransformer(true, new TransformerVertical());
+            if (null != transformer) {
+                mViewPager.setPageTransformer(false, transformer);
+            }
             // ViewPager
             final LayoutParams params1 = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             mViewPager.setLayoutParams(params1);
@@ -274,6 +275,10 @@ public class BannerLayout extends RelativeLayout implements Handler.Callback, Vi
         mViewPager.setCurrentItem(position);
         onPageSelected(0);
         setImageLoop(true);
+    }
+
+    public void setBannerList(ArrayList<String> urlList) {
+        setBannerList(urlList, null);
     }
 
     @Override
